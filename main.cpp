@@ -40,11 +40,13 @@ void user_button_pressed_fcn();
 void move(float dist, float vel, float acc) {
      printf("Weg: %3.3f %3.3f %3.3f %3.3f %3.3f\n", dist,vel,acc,Rest+(dist),positionController_M3.getRotation());
     enable_motors = 1;
+    Rest=positionController_M3.getRotation();
+    ThisThread::sleep_for(1000ms);
     positionController_M3.setDesiredRotation(Rest+(dist));
     positionController_M3.setMaxVelocityRPS(vel);         
     positionController_M3.setMaxAccelerationRPS(acc); 
-    ThisThread::sleep_for(5000ms);
-    Rest=positionController_M3.getRotation();
+    
+    
    
    
 
@@ -68,14 +70,19 @@ void fall(float ang){
 
 int main() {
 
+
+
+
 user_button.fall(&user_button_pressed_fcn);
 
     int zustand = 1;
     bool schleife = true;
     
     servo.enable();
-    servo.setNormalisedAngle(0.14f);  
+    servo.setNormalisedAngle(0.14f);
     enable_motors = 0; 
+    
+
 
     additional_led=0;
     printf("Warten\n");
@@ -96,25 +103,26 @@ user_button.fall(&user_button_pressed_fcn);
                 case 1: ///////////////////////////////////////////////////////////////////////////////////////
                 printf("Case 1\n");
 
-                fall(90.0);
-                ThisThread::sleep_for(5000ms);
+                move(-1.0f, 1.0f, 0.7f);
+                
+                ThisThread::sleep_for(3000ms);
 
                 zustand ++;
                 break;
                 case 2: ///////////////////////////////////////////////////////////////////////////////////////
                 printf("Case 2\n");
 
-                move(5.2f, 1.0f, 0.5f);
-                ThisThread::sleep_for(3000ms);
-
+                fall(93.0);
+                move(6.4f, 1.0f, 0.7f);
+                ThisThread::sleep_for(8000ms);
 
                 zustand ++;
                 break;
                 case 3: ///////////////////////////////////////////////////////////////////////////////////////
                 printf("Case 3\n");
                 
-                lift(150.0);
-                ThisThread::sleep_for(3000ms);
+                lift(120.0);
+                ThisThread::sleep_for(2000ms);
                 
                 zustand ++;
                 break;
@@ -122,8 +130,8 @@ user_button.fall(&user_button_pressed_fcn);
                 printf("Case 4\n");
 
 
-                move(4.0f, 0.5f, 0.6f);
-                ThisThread::sleep_for(3000ms);
+                move(2.2f, 0.6f, 0.6f);
+                ThisThread::sleep_for(6000ms);
 
                 zustand ++;
                 break;
@@ -131,7 +139,8 @@ user_button.fall(&user_button_pressed_fcn);
                 printf("Case 5\n");
 
                 fall(70.0);
-                ThisThread::sleep_for(3000ms);
+                move(2.4f, 0.6f, 0.6f);
+                ThisThread::sleep_for(6000ms);
 
                 
                 zustand ++;
@@ -139,28 +148,27 @@ user_button.fall(&user_button_pressed_fcn);
                 case 6: ///////////////////////////////////////////////////////////////////////////////////////
                 printf("Case 6\n");
 
-                move(4.0f, 0.4f, 0.6f);
-                fall(20.0);
-                ThisThread::sleep_for(5000ms);
+               
+                lift(93.0);
+                ThisThread::sleep_for(2000ms);
                                      
                 zustand ++;
                 break;
                 case 7: ///////////////////////////////////////////////////////////////////////////////////////
                 printf("Case 7\n");
 
-                move(1.0f, 0.4f, 0.7f);
-                lift(90.0);
-                ThisThread::sleep_for(4000ms);
-
+                move(1.2f, 0.5f, 0.7f);
+                ThisThread::sleep_for(3000ms);
 
                 zustand ++;
                 break;
                 case 8: ///////////////////////////////////////////////////////////////////////////////////////
                 printf("Case 8\n");
 
-                move(3, 0.5, 0.5);
+                
                 lift(120.0);
-                ThisThread::sleep_for(4000ms);
+                move(2.0f, 0.5f, 0.8f);
+                ThisThread::sleep_for(3000ms);
 
 
                 zustand ++;
@@ -168,17 +176,18 @@ user_button.fall(&user_button_pressed_fcn);
                 case 9: ///////////////////////////////////////////////////////////////////////////////////////
                 printf("Case 9\n");
 
-                move(4, 0.5, 0.8);
-                fall(90.0);
-                ThisThread::sleep_for(3000ms);
+                
+                move(8.5f, 1.0f, 0.5f);
+                fall(93.0);
+                ThisThread::sleep_for(12000ms);
 
                 zustand ++;
                 break;
                 case 10: ///////////////////////////////////////////////////////////////////////////////////////
                 printf("Case 10\n");
 
-                move(3, 0.7, 0.7);
-                ThisThread::sleep_for(3000ms);
+                //move(7.0f, 1.0f, 0.7f);
+                //ThisThread::sleep_for(5000ms);
 
 
                 zustand ++;
